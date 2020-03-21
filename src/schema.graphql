@@ -1,0 +1,26 @@
+type User {
+  id: ID!
+  name: String
+}
+
+type Card {
+  id: ID!
+  title: String
+  gist: String
+  content: String
+  by: User @relation(name: "CREATED", direction: "IN")
+  notes: [Note] @relation(name: "BELONGS_TO", direction: "OUT")
+}
+
+type Note {
+  id: ID!
+  title: String
+  cards: [Card] @relation(name: "BELONGS_TO", direction: "IN")
+  tags: [Tag] @relation(name: "TAGGED", direction: "OUT")
+  owner: User @relation(name: "OWN", direction: "IN")
+}
+
+type Tag {
+  name: ID!
+  notes: [Note] @relation(name: "TAGGED", direction: "IN")
+}
