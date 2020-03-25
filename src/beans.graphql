@@ -1,0 +1,35 @@
+type Person {
+  id: ID!
+  name: String
+  jdata: String
+}
+
+type Nationality {
+  name: ID!
+  ar_name: String
+  jdata: String
+}
+
+type CoffeBean {
+  name: ID!
+  ar_name: String
+  nationality: Nationality @relation(name: "ORIGIN", direction: "OUT")
+  aroma: String
+  type: String
+  taste: String
+  jdata: String
+}
+
+type CoffeBrand {
+  name: ID!
+  ar_name: String
+  nationality: Nationality @relation(name: "ORIGIN", direction: "OUT")
+  website: String
+  jdata: String
+}
+
+type ServingType {
+  name: ID!
+  ar_name: String
+  jdata: String
+}

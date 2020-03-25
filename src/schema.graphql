@@ -26,6 +26,7 @@ type Tag {
 }
 
 type Todo {
+  id: ID!
   title: String!
   tags: [Tag] @relation(name: "TAGGED", direction: "OUT")
 }
