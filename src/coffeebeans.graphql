@@ -1,0 +1,81 @@
+interface Person {
+  id: ID!
+  name: String
+  role: String
+}
+
+interface Post {
+  id: ID!
+  title: String
+  content: String
+}
+
+type Author implements Person & Post {
+  id: ID!
+  name: String
+  title: String
+  content: String
+  role: String
+}
+
+type Article implements Post {
+  id: ID!
+  title: String
+  jdata: String
+  content: String
+  createdBy: Author @relation(name: "WROTE", direction: "IN")
+}
+
+type Image implements Post {
+  id: ID!
+  title: String
+  url: String
+  jdata: String
+  alt: String
+  content: String
+}
+
+type Nationality {
+  name: ID!
+  ar_name: String
+  jdata: String
+  desc: String
+}
+
+type CoffeeBean implements Post {
+  id: ID!
+  title: String
+  ar_title: String
+  nationality: Nationality @relation(name: "ORIGIN", direction: "OUT")
+  aroma: String
+  type: String
+  taste: String
+  jdata: String
+  content: String
+}
+
+type Brand implements Post{
+  id: ID!
+  title: String
+  ar_title: String
+  nationality: Nationality @relation(name: "ORIGIN", direction: "OUT")
+  website: String
+  jdata: String
+  content: String
+}
+
+type ServingType implements Post{
+  id: ID!
+  title: String
+  ar_title: String
+  jdata: String
+  content: String
+}
+
+
+type Query {
+  fullTextSearch(query: String!): [Post!]!
+    @cypher(statement:"CALL db.index.fulltext.queryNodes('searchIndex', $query) YIELD node RETURN node")
+  existingRelations: [String]
+    @cypher(statement:"match (n)-[r]->(a) return DISTINCT type(r)")
+}
