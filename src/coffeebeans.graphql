@@ -54,7 +54,7 @@ type CoffeeBean implements Post {
   content: String
 }
 
-type Brand implements Post{
+type Brand implements Post {
   id: ID!
   title: String
   ar_title: String
@@ -64,7 +64,7 @@ type Brand implements Post{
   content: String
 }
 
-type ServingType implements Post{
+type ServingType implements Post {
   id: ID!
   title: String
   ar_title: String
@@ -72,10 +72,11 @@ type ServingType implements Post{
   content: String
 }
 
-
 type Query {
   fullTextSearch(query: String!): [Post!]!
-    @cypher(statement:"CALL db.index.fulltext.queryNodes('searchIndex', $query) YIELD node RETURN node")
+    @cypher(
+      statement: "CALL db.index.fulltext.queryNodes('searchPosts', $query) YIELD node RETURN node"
+    )
   existingRelations: [String]
-    @cypher(statement:"match (n)-[r]->(a) return DISTINCT type(r)")
+    @cypher(statement: "match (n)-[r]->(a) return DISTINCT type(r)")
 }
