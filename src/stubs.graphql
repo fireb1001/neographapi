@@ -1,0 +1,24 @@
+interface Stub {
+  id: ID!
+  title: String
+}
+
+type Area {
+  id: ID!
+  title: String
+  country: String
+  govern: String
+}
+
+type HistoricPlace {
+  id: ID!
+  title: String
+  area: Area @relation(name: "LOCATED", direction: "OUT")
+}
+
+type HistoricPlaceStub implements Stub {
+  id: ID!
+  place: HistoricPlace @relation(name: "OF", direction: "OUT")
+  title: String
+  location: String
+}
